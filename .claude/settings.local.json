@@ -16,7 +16,15 @@
       "Bash(echo \"2. Cart POST \\(no auth\\): $\\(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8000/api/cart/\\)\")",
       "Bash(echo \"3. Orders GET \\(no auth\\): $\\(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8000/api/orders/\\)\")",
       "Bash(echo \"4. Orders POST \\(no auth\\): $\\(curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8000/api/orders/\\)\")",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(vue:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm run:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(rm:*)"
     ]
   }
 }
