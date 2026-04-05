@@ -35,10 +35,14 @@ class ProductListSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
+    wishlist_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
-        fields = ['id', 'title', 'slug', 'description', 'price', 'stock', 'category', 'images', 'average_rating', 'review_count', 'created_at', 'updated_at', 'is_active']
+        fields = ['id', 'title', 'slug', 'description', 'price', 'stock', 'category', 'images', 'average_rating', 'review_count', 'wishlist_count', 'created_at', 'updated_at', 'is_active']
+
+    def get_wishlist_count(self, obj):
+        return obj.wishlisted_by.count()
 
 
 class ReviewSerializer(serializers.ModelSerializer):

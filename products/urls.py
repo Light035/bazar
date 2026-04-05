@@ -2,11 +2,13 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import CategoryViewSet, ProductViewSet, ReviewViewSet
 from .seller_views import SellerProductViewSet, SellerOrderViewSet
+from .wishlist_views import WishlistViewSet
 
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet, basename='category')
 router.register(r'products', ProductViewSet, basename='product')
 router.register(r'reviews', ReviewViewSet, basename='review')
+router.register(r'wishlist', WishlistViewSet, basename='wishlist')
 
 seller_router = DefaultRouter()
 seller_router.register(r'products', SellerProductViewSet, basename='seller-product')

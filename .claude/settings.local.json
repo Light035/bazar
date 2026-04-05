@@ -24,7 +24,9 @@
       "Bash(npx tailwindcss:*)",
       "Bash(npm run:*)",
       "Bash(npm uninstall:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(gh repo:*)",
+      "Bash(pip show:*)"
     ]
   }
 }

@@ -50,7 +50,12 @@ class LoginSerializer(serializers.Serializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    wishlist_count = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['id', 'email', 'first_name', 'last_name', 'phone', 'avatar', 'created_at']
-        read_only_fields = ['id', 'email', 'created_at']
+        fields = ['id', 'email', 'first_name', 'last_name', 'phone', 'avatar', 'created_at', 'wishlist_count']
+        read_only_fields = ['id', 'email', 'created_at', 'wishlist_count']
+
+    def get_wishlist_count(self, obj):
+        return obj.wishlist.count()
