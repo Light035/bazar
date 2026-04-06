@@ -100,7 +100,8 @@ class Command(BaseCommand):
 
         for prod_data in products_data:
             category_name = prod_data.pop('category')
-            category = next(c for c in categories if c.name == category_name)
+            # Fetch category from database to ensure we have the correct ID
+            category = Category.objects.get(name=category_name)
 
             product = Product.objects.create(
                 title=prod_data['title'],

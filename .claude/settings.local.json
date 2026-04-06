@@ -26,7 +26,11 @@
       "Bash(npm uninstall:*)",
       "Bash(rm:*)",
       "Bash(gh repo:*)",
-      "Bash(pip show:*)"
+      "Bash(pip show:*)",
+      "Bash(grep -E \"\\\\.py$\")",
+      "Bash(ls -la ../bazar-frontend/.env*)",
+      "WebFetch(domain:github.com)",
+      "Bash(npm list:*)"
     ]
   }
 }
