@@ -148,6 +148,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8080",
     "http://localhost:8081",
     "http://127.0.0.1:8081",
+    "https://bazar-frontend.vercel.app",
+    "https://bazar-frontend-git-master-light035s-projects.vercel.app",
+    "https://bazar-frontend-light035s-projects.vercel.app",
 ]
 
 AUTH_USER_MODEL = "users.User"
