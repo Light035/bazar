@@ -70,6 +70,9 @@ fi
 echo "Running database migrations..."
 python manage.py migrate --noinput
 
+echo "Populating database if empty..."
+python manage.py populate_db || true
+
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 
