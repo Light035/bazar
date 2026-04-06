@@ -178,6 +178,8 @@ SWAGGER_SETTINGS = {
         }
     },
     "VALIDATOR_URL": None,
+    "DEFAULT_INFO": "shop.urls.api_info",
+    "PERSIST_AUTH": True,
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
