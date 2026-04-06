@@ -1,7 +1,10 @@
 import random
+import requests
+from io import BytesIO
+from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
-from products.models import Category, Product
+from products.models import Category, Product, ProductImage
 from decimal import Decimal
 
 User = get_user_model()
@@ -93,6 +96,8 @@ class Command(BaseCommand):
         ]
 
         products_created = 0
+        images_created = 0
+
         for prod_data in products_data:
             category_name = prod_data.pop('category')
             category = next(c for c in categories if c.name == category_name)
@@ -110,6 +115,34 @@ class Command(BaseCommand):
             products_created += 1
             self.stdout.write(f'  + Created product: {product.title} ({product.price} T)')
 
+            # Add 2-3 images for each product
+            num_images = random.randint(2, 3)
+            seed = product.slug
+
+            for i in range(num_images):
+                try:
+                    # Generate unique seed for each image
+                    image_seed = f"{seed}-{i}"
+                    image_url = f"https://picsum.photos/seed/{image_seed}/800/600"
+
+                    # Download image
+                    response = requests.get(image_url, timeout=10)
+                    if response.status_code == 200:
+                        # Create ProductImage
+                        img_content = ContentFile(response.content)
+                        product_image = ProductImage.objects.create(
+                            product=product,
+                            is_main=(i == 0),  # First image is main
+                            order=i
+                        )
+                        product_image.image.save(f"{product.slug}-{i}.jpg", img_content, save=True)
+                        images_created += 1
+
+                        if i == 0:
+                            self.stdout.write(f'    + Added {num_images} images (main: {image_seed})')
+                except Exception as e:
+                    self.stdout.write(f'    ! Failed to add image: {str(e)}')
+
         # Print summary
         self.stdout.write('\n' + '='*60)
         self.stdout.write(self.style.SUCCESS('DATABASE POPULATION COMPLETE!'))
@@ -117,6 +150,7 @@ class Command(BaseCommand):
         self.stdout.write(f'\nSummary:')
         self.stdout.write(f'  - Categories: {len(categories)}')
         self.stdout.write(f'  - Products: {products_created}')
+        self.stdout.write(f'  - Images: {images_created}')
         self.stdout.write(f'  - Users: 2')
         self.stdout.write(f'\nTest Accounts:')
         self.stdout.write(f'  - Buyer: buyer@test.com / Test1234!')
