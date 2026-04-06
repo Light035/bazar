@@ -166,6 +166,7 @@ SWAGGER_SETTINGS = {
             "description": "JWT authorization header using the Bearer scheme.",
         }
     },
+    "VALIDATOR_URL": None,
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
