@@ -109,12 +109,13 @@ class LoginView(APIView):
             user = serializer.validated_data['user']
 
             # Check if email is verified
-            if not user.email_verified:
-                return Response({
-                    'error': 'Email not verified',
-                    'message': 'Please verify your email address before logging in. Check your inbox for the verification link.',
-                    'email': user.email
-                }, status=status.HTTP_403_FORBIDDEN)
+            # TEMPORARILY DISABLED: Allow login without email verification
+            # if not user.email_verified:
+            #     return Response({
+            #         'error': 'Email not verified',
+            #         'message': 'Please verify your email address before logging in. Check your inbox for the verification link.',
+            #         'email': user.email
+            #     }, status=status.HTTP_403_FORBIDDEN)
 
             refresh = RefreshToken.for_user(user)
             user_data = UserProfileSerializer(user).data
